@@ -292,15 +292,15 @@
 
         <tr>
             <td style="text-align: right;"><label>Price:&nbsp;</label></td>
-            <td><input id="newitemprice" type="text" value="0"/></td>
+            <td><input id="newitemprice" type="text" value=""/></td>
         </tr>
         <tr>
             <td style="text-align: right;"><label>Price2:&nbsp;</label></td>
-            <td><input id="newitemprice2" type="text" value="0"/></td>
+            <td><input id="newitemprice2" type="text" value=""/></td>
         </tr>
         <tr>
             <td style="text-align: right;"><label>Price3:&nbsp;</label></td>
-            <td><input id="newitemprice3" type="text" value="0"/></td>
+            <td><input id="newitemprice3" type="text" value=""/></td>
         </tr>
 <!--    <tr>
             <td style="text-align: right;"><label>Price4:&nbsp;</label></td>
@@ -309,7 +309,7 @@
 -->        
         <tr>
             <td style="text-align: right;"><label>Cost:&nbsp;</label></td>
-            <td><input id="newitemcost" type="text" value="0"/></td>
+            <td><input id="newitemcost" type="text" value=""/></td>
         </tr>
 <!--
         <tr>
@@ -320,7 +320,7 @@
 -->        
         <tr>
             <td style="text-align: right;"><label>Stock:&nbsp;</label></td>
-            <td><input id="newitemqty" type="text" value="1"/></td>
+            <td><input id="newitemqty" type="text" value=""/></td>
         </tr>
 <!--        
         <tr>
@@ -781,6 +781,23 @@
                         "class" : "btn btn-success btn-xs",
                         click: function() {
                             saveItem(true);
+                            $('#newitemcode').val('');
+                            $('#newitemcategory').val('0');
+                            $('#newitemactive').val('Y');
+                            $('#newitemname').val('');
+                            $('#newitemaltname').val('');
+                            $('#newitemdesc').val('');
+                            $('#newitemsubline').val('');
+                            $('#newitemunit').val('D');
+                            $('#newitemprice').val('');
+                            $('#newitemprice2').val('');
+                            $('#newitemprice3').val('');
+                            $('#newitemcost').val('');                                                        
+                            $('#newitemqty').val('');
+                            $('#newitemsupplier').val('');
+                            $('#newitemurlimage').val('');
+                            $('#newitemurlimageprev').val('');
+                            $('#newitemurlimagefile').val('');                          
                         }
                     }
                     ,
@@ -789,7 +806,24 @@
                         "class" : "btn btn-xs",
                         click: function() {
                             $( this ).dialog( "close" );
-                        }
+                            $('#newitemcode').val('');
+                            $('#newitemcategory').val('0');
+                            $('#newitemactive').val('Y');
+                            $('#newitemname').val('');
+                            $('#newitemaltname').val('');
+                            $('#newitemdesc').val('');
+                            $('#newitemsubline').val('');
+                            $('#newitemunit').val('D');
+                            $('#newitemprice').val('');
+                            $('#newitemprice2').val('');
+                            $('#newitemprice3').val('');
+                            $('#newitemcost').val('');                                                        
+                            $('#newitemqty').val('');
+                            $('#newitemsupplier').val('');
+                            $('#newitemurlimage').val('');
+                            $('#newitemurlimageprev').val('');
+                            $('#newitemurlimagefile').val('');            
+                          }
                     }
                 ],
                 create: function( event, ui ) {
@@ -878,7 +912,7 @@
         var unisel = $(".unitselect");
         unisel.html('');
 
-//        unisel.append('<option class="unitsid-1" value="D">DOC</option>');
+//        unisel.append('<option class="unitsid-1" value="DOC">DOC</option>');
 //        unisel.append('<option class="unitsid-2" value="YD">YD</option>');                
 //        unisel.append('<option class="unitsid-3" value="MTS">MTS</option>');        
 //        unisel.append('<option class="unitsid-4" value="PZA">PZA</option>');        
