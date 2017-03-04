@@ -292,15 +292,15 @@
 
         <tr>
             <td style="text-align: right;"><label>Price:&nbsp;</label></td>
-            <td><input id="newitemprice" type="text" value=""/></td>
+            <td><input id="newitemprice" type="text" value="0"/></td>
         </tr>
         <tr>
             <td style="text-align: right;"><label>Price2:&nbsp;</label></td>
-            <td><input id="newitemprice2" type="text" value=""/></td>
+            <td><input id="newitemprice2" type="text" value="0"/></td>
         </tr>
         <tr>
             <td style="text-align: right;"><label>Price3:&nbsp;</label></td>
-            <td><input id="newitemprice3" type="text" value=""/></td>
+            <td><input id="newitemprice3" type="text" value="0"/></td>
         </tr>
 <!--    <tr>
             <td style="text-align: right;"><label>Price4:&nbsp;</label></td>
@@ -309,7 +309,7 @@
 -->        
         <tr>
             <td style="text-align: right;"><label>Cost:&nbsp;</label></td>
-            <td><input id="newitemcost" type="text" value=""/></td>
+            <td><input id="newitemcost" type="text" value="0"/></td>
         </tr>
 <!--
         <tr>
@@ -320,7 +320,7 @@
 -->        
         <tr>
             <td style="text-align: right;"><label>Stock:&nbsp;</label></td>
-            <td><input id="newitemqty" type="text" value=""/></td>
+            <td><input id="newitemqty" type="text" value="1"/></td>
         </tr>
 <!--        
         <tr>
