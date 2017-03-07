@@ -150,7 +150,7 @@
                 +sale.custemail+","+itemstr+","+itemqty+","+paystr+","+WPOS.util.currencyFormat(sale.subtotal)+","+sale.discount+"%,"+WPOS.util.currencyFormat(sale.total)+","+WPOS.util.getDateFromTimestamp(sale.processdt)+","+sale.dt+","+status+","+voidstr+","+refstr+"\n";
         }
 
-        WPOS.initSave("sales-"+WPOS.util.getDateFromTimestamp(stime)+"-"+WPOS.util.getDateFromTimestamp(etime), csv);
+        WPOS.initSave("POS Sales-"+WPOS.util.getDateFromTimestamp(stime)+"-"+WPOS.util.getDateFromTimestamp(etime), csv);
     }
 
     $(function() {
@@ -167,7 +167,7 @@
         datatable = $('#salestable').dataTable(
             { "bProcessing": true,
                 "aaData": itemarray,
-                "aaSorting": [[ 1, "desc" ]],
+                "aaSorting": [[ 0, "desc" ]],
                 "aoColumns": [
                     { "sType": "numeric", "mData":"id" },
 //                    { "sType": "numeric", "mData":function(data, type, val){ return '<a class="reflabel" title="'+data.ref+'" href="">'+data.ref.split("-")[2]+'</a>'; } },

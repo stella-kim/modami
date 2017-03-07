@@ -843,14 +843,13 @@ function WPOSTransactions() {
                 title_html: true,
 
                 buttons: [
-/*                    {
+                    {
                         html: "<i class='icon-ban-circle bigger-110'></i>&nbsp; Void",
                         "class": "btn btn-danger btn-xs voidbuttons",
                         click: function () {
                             WPOS.transactions.showVoidForm();
                         }
                     },
-*/                    
                     {
                         html: "<i class='icon-remove bigger-110'></i>&nbsp; Close",
                         "class": "btn btn-xs",
