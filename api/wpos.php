@@ -285,7 +285,7 @@ function routeApiCall($action, $data, $result) {
           $result['error'] = "You do not have permission to perform this action.";
           return $result;
       }
-    }   
+    }    
     // Check in permission protected API calls
     switch ($action) {
     // admin only
