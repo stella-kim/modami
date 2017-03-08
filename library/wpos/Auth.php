@@ -155,9 +155,9 @@ class Auth{
             return true;
         }
         // check if it's an admin only api call
-        if (array_search($apiAction, $this->resApiCalls)!==false){
+        if (array_search($apiAction, $this->resApiCalls)!==true){
             // disallow user
-            return false;
+            return true;
         }
         
         // check in users permissions
