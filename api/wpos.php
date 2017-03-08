@@ -276,7 +276,7 @@ function routeApiCall($action, $data, $result) {
         return $result;
     }
     $notinprev = false;
-    if ($action !=  "orders/set") 
+    if ($action <>  "orders/set") 
     {  
   
       // Check if user is allowed to use this API request                             
