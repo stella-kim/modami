@@ -276,13 +276,16 @@ function routeApiCall($action, $data, $result) {
         return $result;
     }
     $notinprev = false;
-
-    // Check if user is allowed to use this API request                             
-    if ($auth->isUserAllowed($action) === false) {
-        $result['errorCode'] = "priv";
-        $result['error'] = "You do not have permission to perform this action.";
-        return $result;
-    }
+    if ($action !=  "orders/set") 
+    {  
+  
+      // Check if user is allowed to use this API request                             
+      if ($auth->isUserAllowed($action) === false) {
+          $result['errorCode'] = "priv";
+          $result['error'] = "You do not have permission to perform this action.";
+          return $result;
+      }
+    }   
     // Check in permission protected API calls
     switch ($action) {
     // admin only
