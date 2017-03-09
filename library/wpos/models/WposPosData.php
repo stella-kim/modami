@@ -213,8 +213,8 @@ class WposPosData
             foreach ($dbSales as $sale) {
                 $salejson = json_decode($sale['data']);
                 $salejson->type = $sale['type'];
-//                $sales[$sale['ref']] = $salejson;
-                $sales[$sale['id']] = $salejson;
+                $sales[$sale['ref']] = $salejson;
+//                $sales[$sale['id']] = $salejson;
             }
             $result['data'] = $sales;
         } else if ($dbSales === false) {
