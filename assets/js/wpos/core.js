@@ -1268,12 +1268,23 @@ function WPOS() {
                 //alert(data.a);
             });
             socket.on('error', function(){
-                if (socketon) // A fix for mod_proxy_wstunnel causing error on disconnect
+                if (socketon) { // A fix for mod_proxy_wstunnel causing error on disconnect
+                performLogout();   
+                location.reload(true);
                 alert("Update feed could not be connected, \nyou will not receive realtime updates!");
+                }
             });
         } else {
             socket.socket.reconnect();
         }
+    }
+
+    function performLogout(){
+      WPOS.util.showLoader();
+      stopSocket();
+      WPOS.getJsonData("logout");
+      showLogin();
+      WPOS.util.hideLoader();
     }
 
     function stopSocket(){

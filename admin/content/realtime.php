@@ -458,6 +458,9 @@ function loadTodaysSales() {
 }
 
 function populateTodayStats() {
+    if (!totals)
+        return false;
+
     // populate the fields
     $("#rtsalenum").text(totals.salenum);
     $("#rtsaletotal").text(WPOS.util.currencyFormat(totals.saletotal));
@@ -581,11 +584,13 @@ $(function () {
     // load data
     WPOS.startSocket();
     var data = WPOS.sendJsonData("multi", JSON.stringify({"sales/get":{stime: stoday, etime: etime}, "stats/general":{"stime":stoday, "etime":etime}, "graph/general":{"stime": stime, "etime": etime, "interval": 1800000}}));
-    sales = data['sales/get'];
-    totals = data['stats/general'];
-    loadTodaysSales();
-    populateTodayStats();
-    loadGraph(data['graph/general']);
+   if (data!==false) {
+       sales = data['sales/get'];
+       totals = data['stats/general'];
+       loadTodaysSales();
+       populateTodayStats();
+       loadGraph(data['graph/general']);
+    }
     // hide loader
     WPOS.util.hideLoader();
 })

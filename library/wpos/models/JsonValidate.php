@@ -127,6 +127,7 @@ class JsonValidate {
                         return "must be a boolean\n";
                         break;
                     }
+                    break;                    
                 default:
                     $rule = substr($schemaval, 0, 2);
                     $val = substr($schemaval, 2, strlen($schemaval));
