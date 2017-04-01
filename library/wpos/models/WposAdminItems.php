@@ -50,7 +50,7 @@ class WposAdminItems {
     {
         // validate input
 //      $jsonval = new JsonValidate($this->data, '{"code":"","qty":1, "name":"", "taxid":1, "price":-1,"type":""}');
-        $jsonval = new JsonValidate($this->data, '{"code":"","qty":1, "name":"","price":-1,"type":""}');
+        $jsonval = new JsonValidate($this->data, '{"code":"","qty":1, "name":"","cost":-1,"price":-1,"type":""}');
         if (($errors = $jsonval->validate()) !== true) {
             $result['error'] = $errors;
             return $result;
@@ -88,7 +88,7 @@ class WposAdminItems {
     {
         // validate input
 //      $jsonval = new JsonValidate($this->data, '{"id":1, "code":"", "qty":1, "name":"", "taxid":1, "price":-1}');
-        $jsonval = new JsonValidate($this->data, '{"id":1, "code":"", "qty":1, "name":"", "price":-1}');
+        $jsonval = new JsonValidate($this->data, '{"id":1, "code":"", "qty":1, "name":"", "cost":-1,"price":-1}');
         if (($errors = $jsonval->validate()) !== true) {
             $result['error'] = $errors;
             return $result;

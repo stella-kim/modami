@@ -28,7 +28,7 @@ function WPOSItems() {
      */
     this.addManualItemRow = function () {
         // add the row
-        addItemRow(1, "","", "0.00","0.00", 1, 0, {desc:""});
+        addItemRow(1, "", "0.00", 1, 0, {desc:"", cost:0.00});
         // focus on qty
         $("#itemtable")
             .children('tr :last')
@@ -270,12 +270,12 @@ function WPOSItems() {
         if (item.price==""){
             // insert item into table
 //            addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3,item.price4, item.taxid, item.id, {desc:item.description, alt_name:item.alt_name});
-            addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3,item.taxid, item.id, {desc:item.description, alt_name:item.alt_name});
+            addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3,item.taxid, item.id, {desc:item.description,cost:item.cost, alt_name:item.alt_name});
         } else {
             if (!isItemAdded(item.id, true)){
                 // insert item into table
 //                addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3,item.price4, item.taxid, item.id, {desc:item.description, alt_name:item.alt_name});
-                addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3, item.taxid, item.id, {desc:item.description, alt_name:item.alt_name});
+                addItemRow(1, item.name, item.unit,item.price, item.price2,item.price3,item.taxid, item.id, {desc:item.description,cost:item.cost,alt_name:item.alt_name});
             }
         }
         $("#codeinput").val('');
@@ -301,6 +301,7 @@ function WPOSItems() {
         var data = itemrow.find('.itemid').data('options');
         //console.log(data);
         $("#itemdesc").val(data.desc);
+        $("#itemcost").val(data.cost);
         $("#itemaltname").val(data.alt_name);
         // get stored item mods
         var itemid = itemrow.find('.itemid').val();
@@ -431,6 +432,7 @@ function WPOSItems() {
         });
         var data = itemrow.find('.itemid').data('options');
         data.desc = $("#itemdesc").val();
+        data.cost = $("#itemcost").val();
         if (moddata.items.length>0) data.mod = moddata;
         itemrow.find('.itemid').data('options', data);
         WPOS.sales.updateSalesTotal();
@@ -793,7 +795,7 @@ function WPOSSales() {
 
     function validateSalesItems(){
 //        var qty,name, unit, unit2, unit3, unit4,  mod, tempprice;
-        var qty,name, unit, unit2, unit3,  mod, tempprice;
+        var qty,name, unit, unit2, unit3,  mod, tempprice ,tempcost;
         var numinvalid = 0;
         $("#itemtable").children(".item_row").each(function (index, element) {
                 qty = parseFloat($(element).find(".itemqty").val());
@@ -811,7 +813,7 @@ function WPOSSales() {
                     tempprice = qty * (unit + mod);
                     // calculate item tax
                     var taxruleid = $(element).find(".itemtax").val();
-                    var taxdata = WPOS.util.calcTax(taxruleid, tempprice);
+                    var taxdata = WPOS.util.calcTax(taxruleid, tempprice, tempcost);
                     if (!taxdata.inclusive) {
                         tempprice += taxdata.total;
                     }
@@ -1282,7 +1284,7 @@ function WPOSSales() {
                     taxtotals[i] += taxdata.values[i];
                 }
                 // add # items to total
-                tempqty = parseInt($(element).find(".itemqty").val());
+                tempqty = parseFloat($(element).find(".itemqty").val());
                 numitems += tempqty;
                 // add item to the array
                 var data = {
@@ -1303,6 +1305,9 @@ function WPOSSales() {
                 for (var x in itemdata) {
                     data[x] = itemdata[x];
                 }
+                if (data.cost>0)
+                    totalcost += (data.cost*data.qty);
+                 
                 items.push(data);
 
                 if (WPOS.isOrderTerminal()){

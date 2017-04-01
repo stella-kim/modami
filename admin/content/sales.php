@@ -108,7 +108,7 @@
 
     function exportCurrentSales(){
         var sales = WPOS.transactions.getTransactions();
-        var csv = "ID, Reference, User, Device, Location, Customer Email, Items, #Items, Payments, Subtotal, Discount, Total, Sale Time, Process Time, Status, Void Data, Refund Data\n"; // Set header
+        var csv = "ID, Reference, User, Device, Location, Customer Email,#Items, Total,  Process Time, Status\n"; // Set header
         var sale;
         for (var i in sales){
             sale = sales[i];
@@ -117,7 +117,7 @@
             var itemqty = 0;
             for (var i2 in sale.items){
                 itemqty += parseInt(sale.items[i2].qty);
-                itemstr += "("+sale.items[i2].qty+"x "+sale.items[i2].name+"-"+sale.items[i2].desc+" @ "+WPOS.util.currencyFormat(sale.items[i2].unit)+(sale.items[i2].tax.inclusive?" tax incl. ":" tax excl. ")+WPOS.util.currencyFormat(sale.items[i2].tax.total)+" = "+WPOS.util.currencyFormat(sale.items[i2].price)+") ";
+//                itemstr += "("+sale.items[i2].qty+"x "+sale.items[i2].name+"-"+sale.items[i2].desc+" @ "+WPOS.util.currencyFormat(sale.items[i2].unit)+(sale.items[i2].tax.inclusive?" tax incl. ":" tax excl. ")+WPOS.util.currencyFormat(sale.items[i2].tax.total)+" = "+WPOS.util.currencyFormat(sale.items[i2].price)+") ";
             }
             // join payments
             var paystr = "";
@@ -146,8 +146,11 @@
                 case 2: status = "Void"; break;
                 case 3: status = "Refunded"; break;
             }
+//            csv+=sale.id+","+sale.ref+","+WPOS.getConfigTable().users[sale.userid].username+","+WPOS.getConfigTable().devices[sale.devid].name+","+WPOS.getConfigTable().locations[sale.locid].name+","
+//                +sale.custemail+","+itemstr+","+itemqty+","+paystr+","+WPOS.util.currencyFormat(sale.subtotal)+","+sale.discount+"%,"+WPOS.util.currencyFormat(sale.total)+","+WPOS.util.getDateFromTimestamp(sale.processdt)+","+sale.dt+","+status+","+voidstr+","+refstr+"\n";
             csv+=sale.id+","+sale.ref+","+WPOS.getConfigTable().users[sale.userid].username+","+WPOS.getConfigTable().devices[sale.devid].name+","+WPOS.getConfigTable().locations[sale.locid].name+","
-                +sale.custemail+","+itemstr+","+itemqty+","+paystr+","+WPOS.util.currencyFormat(sale.subtotal)+","+sale.discount+"%,"+WPOS.util.currencyFormat(sale.total)+","+WPOS.util.getDateFromTimestamp(sale.processdt)+","+sale.dt+","+status+","+voidstr+","+refstr+"\n";
+                +sale.custemail+","+itemqty+","+"\""+WPOS.util.currencyFormat(sale.total)+"\""+","+sale.dt+","+status+"\n";
+
         }
 
         WPOS.initSave("POS Sales-"+WPOS.util.getDateFromTimestamp(stime)+"-"+WPOS.util.getDateFromTimestamp(etime), csv);

@@ -759,14 +759,59 @@ function routeApiCall($action, $data, $result) {
                 $ext = substr(strrchr($newpath,"."),1);
                 $ext = strtolower($ext);		
                 
-    
-//                Logger::write("newpath", "STOCK",$newpath);                
+                $url = "https://12.201.41.158/modami_uploader/upload.php";
+
                 if ($ext =="jpg" or $ext =="png"  or $ext =="csv" ){
+                      $filename = $_FILES['file']['name'];
+                      $filedata = $_FILES['file']['tmp_name'];
+                      $filesize = $_FILES['file']['size'];
+                      $headers = array("Content-Type:multipart/form-data"); // cURL headers for file uploading
+                      $postfields = array("filedata" => "@$filedata", "filename" => $filename);
+
+                      $ch = curl_init();
+                      $options = array(
+                          CURLOPT_URL => $url,
+                          CURLOPT_HEADER => true,
+                          CURLOPT_POST => 1,
+                          CURLOPT_HTTPHEADER => $headers,                         
+                          CURLOPT_POSTFIELDS => $postfields,
+                          CURLOPT_INFILESIZE => $filesize,
+                          CURLOPT_FOLLOWLOCATION=> true,
+                          CURLOPT_SSL_VERIFYHOST=> false,
+                          CURLOPT_SSL_VERIFYPEER=> false,
+                          CURLOPT_RETURNTRANSFER => true
+                      ); // cURL options
+                      curl_setopt_array($ch, $options);
+                      curl_exec($ch);
+    
+                      if(!curl_errno($ch))
+                      {
+                          $info = curl_getinfo($ch);
+                          if ($info['http_code'] == 200)
+                          {
+                              $errmsg = "File uploaded successfully";
+                              $result['data'] = ["path" => "https://" . "12.201.41.158/modami_uploader/images/".$filename];
+                          }else {
+                              $result['error'] = "There was an error uploading the file " . $newpath;
+                          }      
+                      }
+                      else
+                      {
+                          $errmsg = curl_error($ch);
+                          $result['error'] = "There was an error uploading the file " . $newpath;
+                          
+                      }
+                      curl_close($ch);
+    
+                 
+/*
                   if (move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $_SERVER['APP_ROOT'] . $newpath) !== false) {
-                      $result['data'] = ["path" => "/" . $newpath];
+                      $result['data'] = ["path" => "/" . $newpath];                  
+                      $filesize = $_FILES['file']['size'];                                        
                   } else {
                       $result['error'] = "There was an error uploading the file " . $newpath;
                   }
+*/                  
                 }
                 else {
                   $result['error'] = "Invalid File Extension. Please Try again.";      
@@ -808,7 +853,8 @@ function routeApiCall($action, $data, $result) {
                     $stock              = $row[10];
                                         
                     $data=   json_encode($arr, JSON_UNESCAPED_SLASHES);
-                    $sql = "INSERT INTO `stored_items` (`id`,`code`,`name`, `data`,`price`) VALUES (".$id.","."'".$arr['code']."','".$name."','".$data."','".$arr['price']."'".") ON DUPLICATE KEY UPDATE code=VALUES(code) ,name=VALUES(name) ,data =VALUES(data) ";                      
+                    //$sql = "INSERT INTO `stored_items` (`id`,`code`,`name`, `data`,`price`) VALUES (".$id.","."'".$arr['code']."','".$name."','".$data."','".$arr['price']."'".") ON DUPLICATE KEY UPDATE code=VALUES(code) ,name=VALUES(name) ,data =VALUES(data) ";                      
+                    $sql = "INSERT INTO `stored_items` (`id`,`code`,`name`, `data`,`price`,`cost`,`categoryid`) VALUES (".$id.","."'".$arr['code']."','".$name."','".$data."','".$arr['price']."','".$arr['cost']."','".$arr['categoryid']."'".") ON DUPLICATE KEY UPDATE code=VALUES(code) ,name=VALUES(name) ,data =VALUES(data),price =VALUES(price),cost =VALUES(cost),categoryid =VALUES(categoryid)";                      
                     $dbMdl->_db->exec($sql);
       
                     $arr['urlimage']    = stripslashes($row[1]);

@@ -35,23 +35,23 @@
         </label>
     </th>
     <th>ID</th>
-    <th>Image</th>       
-    <th>Category</th>                
+    <th style="width: 80px;">Image</th>       
+    <th style="width: 100px;">Category</th>   
     <th>Code</th>     
 <!--<th>Name</th> -->
     <th>Description</th>
 <!--<th>SubLine</th>      -->  
 <!--<th>Tax</th> -->
-    <th>Unit</th>
-    <th>Price</th>
+    <th style="width: 70px;">Unit</th>
+    <th style="width: 90px;">Price</th>
     <th>%</th>    
-    <th>Price2</th>    
+    <th style="width: 90px;">Price2</th>    
     <th>%</th>    
-    <th>Cost</th>
-    <th>Stock</th>         
-    <th>Status</th>    
+    <th style="width: 90px;">Cost</th>
+    <th style="width: 75px;">Stock</th>         
+<!--<th>Status</th> -->   
 <!--<th>Supplier</th> -->
-    <th class="noexport"></th>
+    <th class="noexport" style="width: 90px;"></th>
 </tr>
 </thead>
 <tbody>
@@ -735,7 +735,7 @@
                 { "sType": "currency", "mData":function(data,type,val){return ( WPOS.util.decimal2Places(((data["price2"] - data["cost"]) / data["price2"] )*100));} },
                 { "sType": "currency", "mData":function(data,type,val){return (data['cost']==""?"":WPOS.util.currencyFormat(data["cost"]));} },                              
                 { "sType": "numeric", "mData":"qty" },                
-                { "sType": "string", "mData":"active" },
+//                { "sType": "string", "mData":"active" },
 //              { "sType": "string", "mData":function(data,type,val){return (suppliers.hasOwnProperty(data.supplierid)?suppliers[data.supplierid].name:'Misc'); } },
                 { "sType": "html", mData:null, sDefaultContent:'<div class="action-buttons"><a class="green" onclick="openEditDialog($(this).closest(\'tr\').find(\'td\').eq(1).text());"><i class="icon-pencil bigger-130"></i></a><a class="red" onclick="removeItem($(this).closest(\'tr\').find(\'td\').eq(1).text())"><i class="icon-trash bigger-130"></i></a> <a class="red" onclick="getStockHistory($(this).closest(\'tr\').find(\'td\').eq(1).text(), 0);"><i class="icon-time bigger-130"></i></a> </div>', "bSortable": false, sClass: "noexport" }
             ] } );

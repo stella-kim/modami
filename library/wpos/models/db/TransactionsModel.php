@@ -157,7 +157,7 @@ class TransactionsModel extends DbConfig
     public function getTotals($stime, $etime, $status=null, $statparity=true, $includeorders=false, $ttype=null){
 
         $placeholders = [":stime"=>$stime, ":etime"=>$etime];
-        $sql = "SELECT *, COALESCE(SUM(total), 0) as stotal, COUNT(id) as snum, COALESCE(GROUP_CONCAT(ref SEPARATOR ','),'') as refs FROM sales WHERE (processdt>= :stime AND processdt<= :etime)";
+        $sql = "SELECT *, COALESCE(SUM(total), 0) as stotal, COALESCE(SUM(cost), 0) as ctotal,COUNT(id) as snum, COALESCE(GROUP_CONCAT(ref SEPARATOR ','),'') as refs FROM sales WHERE (processdt>= :stime AND processdt<= :etime)";
 
         if ($status !== null) {
             $sql .= ' AND status'.($statparity?'=':'!=').' :status';

@@ -28,7 +28,8 @@ class Auth{
      * @var array API calls that are restricted to admin users
      */
     private $resApiCalls = ['file/upload', 'logs/read', 'logs/list', 'db/backup', 'node/start', 'node/stop',
-                            'node/restart', 'node/status', 'settings/pos/set', 'settings/general/set', 'settings/pos/get', 'settings/general/get', 'settings/invoice/get', 'settings/invoice/get',
+//                            'node/restart', 'node/status', 'settings/pos/set', 'settings/general/set', 'settings/pos/get', 'settings/general/get', 'settings/invoice/get', 'settings/invoice/get',
+                            'node/restart', 'node/status', 'settings/pos/set', 'settings/pos/get',  'settings/invoice/get', 'settings/invoice/get',
                             'users/get', 'users/add', 'users/edit', 'users/delete', 'user/disable', 'devices/add', 'devices/edit', 'devices/delete', 'device/disable',
                             'location/add', 'location/edit', 'location/delete', 'location/disable', 'devices/setup'];
 
@@ -155,11 +156,15 @@ class Auth{
             return true;
         }
         // check if it's an admin only api call
-        if (array_search($apiAction, $this->resApiCalls)!==true){
+        if (array_search($apiAction, $this->resApiCalls)!==false){
             // disallow user
-            return true;
+            return false;
         }
         
+        if (($apiAction == "settings/general/get") or ($apiAction == "settings/general/set")){
+          // disallow user
+          return true;
+        }
         // check in users permissions
         if (array_search($apiAction, $_SESSION['permissions']['apicalls'])!==false){
             // allow user if action defined in permisions

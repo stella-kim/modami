@@ -1,4 +1,5 @@
-Options +Indexes
+Options -Indexes
+#Options +Indexes
 
 AddType application/x-httpd-php .appcache
 <IfModule mod_expires.c>
