@@ -1253,7 +1253,7 @@ function WPOSSales() {
         var date = new Date().getTime();
         var items = [];
         var taxtotals = {};
-        var taxdata, itemdata, taxruleid, tempqty, numitems = 0;
+        var taxdata, itemdata, taxruleid, tempqty, numitems = 0,totalcost=0;
         var orders = {};
         var oldorders = {};
         var neworderid = null;
@@ -1389,6 +1389,7 @@ function WPOSSales() {
         salesobj.notes = $("#salenotes").val();
         salesobj.discount = $("#salediscount").val();
         salesobj.rounding = curround.toFixed(2);
+        salesobj.cost = parseFloat(totalcost).toFixed(2);
         salesobj.subtotal = cursubtotal.toFixed(2);
         salesobj.total = parseFloat(curgrandtotal).toFixed(2);
         salesobj.numitems = numitems;
