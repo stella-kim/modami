@@ -112,6 +112,7 @@
         html += '<tr><td><a onclick="WPOS.transactions.openTransactionList(\''+repdata.refs+'\');">Revenue</a></td><td>'+repdata.salenum+'</td><td>'+WPOS.util.currencyFormat(repdata.totaltakings)+'</td></tr>';
         html += '<tr><td>Cost</td><td>'+repdata.salenum+'</td><td>'+WPOS.util.currencyFormat(repdata.cost)+'</td></tr>';
         html += '<tr><td>Profit</td><td>'+repdata.salenum+'</td><td>'+WPOS.util.currencyFormat(repdata.profit)+'</td></tr>';
+        html += '<tr><td>Profit Margin</td><td>'+repdata.salenum+'</td><td>'+WPOS.util.decimal2Places(((repdata.saletotal - repdata.cost) / repdata.saletotal )*100)+' %</td></tr>';
         html += "</tbody></table>";
 
         $("#reportcontain").html(html);

@@ -720,7 +720,7 @@
             "aoColumns": [
                 { mData:null, sDefaultContent:'<div style="text-align: center"><label><input class="ace" type="checkbox"><span class="lbl"></span></label><div>', bSortable: false, sClass:"hidden-480 hidden-320 hidden-xs noexport" },
                 { "sType": "numeric", "mData":"id" },
-                { "sType": "html", mData:function(data,type,val){ return "<img width=80 height=60 src="+data.urlimage+">" }},                
+                { "sType": "html", mData:function(data,type,val){ return "<img width=30 height=20 src="+data.urlimage+">" }},                
                 { "sType": "string", "mData":function(data,type,val){return (categories.hasOwnProperty(data.categoryid)?categories[data.categoryid].name:'Misc'); } },                                
                 { "sType": "string", "mData":"code" },                
 //              { "sType": "string", "mData":"name" },
@@ -1165,11 +1165,12 @@
         WPOS.util.showLoader();
         var stockhist = WPOS.sendJsonData("stock/history", JSON.stringify({storeditemid: id, locationid: locationid}));
         var stock2 = WPOS.sendJsonData("stock/level", JSON.stringify({storeditemid: id, locationid: locationid}));
-
+        var i = 0 ; 
+        
         // populate stock dialog with list
         $("#stockhisttable").html("");
         var hist;
-        for (var i in stockhist){
+        for (i in stockhist){
 //            if(i == stock2[i].storeditemid) {
 //               var kkk=stock2[i].stocklevel;  
 //            }
@@ -1177,7 +1178,9 @@
             hist = stockhist[i];
             $("#stockhisttable").append('<tr><td>'+hist.name+'</td><td>'+hist.location+'</td><td>'+hist.type+(hist.auxid!=-1?(hist.auxdir==1?" from ":" to ")+(hist.auxid==0?"Warehouse":WPOS.locations[hist.auxid].name):"")+'</td><td>'+hist.amount+'</td><td>'+hist.dt+'</td></tr>');
         }
+        if (i > 0){
             $("#stockhisttable").append('<tr><td></td><td></td><td>Total</td><td>'+stock2[0].stocklevel+'</td><td></td></tr>');        
+        }    
         WPOS.util.hideLoader();
         $("#stockhistdialog").dialog('open');
     }
