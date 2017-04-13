@@ -759,7 +759,7 @@ function routeApiCall($action, $data, $result) {
                 $ext = substr(strrchr($newpath,"."),1);
                 $ext = strtolower($ext);		
                 
-                $url = "https://12.201.41.158/modami_uploader/upload.php";
+                $url = "http://12.201.41.158/modami_uploader/upload.php";
 
                 if ($ext =="jpg" or $ext =="png"  or $ext =="csv" ){
                       $filename = $_FILES['file']['name'];
@@ -790,7 +790,7 @@ function routeApiCall($action, $data, $result) {
                           if ($info['http_code'] == 200)
                           {
                               $errmsg = "File uploaded successfully";
-                              $result['data'] = ["path" => "https://" . "12.201.41.158/modami_uploader/images/".$filename];
+                              $result['data'] = ["path" => "http://"."12.201.41.158/modami_uploader/images/".$filename];
                           }else {
                               $result['error'] = "There was an error uploading the file " . $newpath;
                           }      
